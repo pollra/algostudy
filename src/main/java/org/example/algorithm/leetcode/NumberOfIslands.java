@@ -1,9 +1,9 @@
-package org.example.algorithm.bfs;
+package org.example.algorithm.leetcode;
 
 import java.util.LinkedList;
 import java.util.Queue;
 // https://leetcode.com/problems/number-of-islands/submissions/1401066938/
-public class Bfs1 {
+public class NumberOfIslands {
 
 	private static boolean[][] visit;
 	private static Queue<Node> queue;
@@ -11,7 +11,7 @@ public class Bfs1 {
 	private static int[] dy = {1, -1, 0, 0};
 
 	public static void main(String[] args) {
-		Bfs1 bfs1 = new Bfs1();
+		NumberOfIslands bfs1 = new NumberOfIslands();
 		char[][] grid1 = {
 			{'1', '1', '0', '0', '0'},
 			{'1', '1', '0', '0', '0'},
