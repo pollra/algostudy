@@ -24,15 +24,20 @@ public class CourseSchedule {
 		}
 
 		List<Integer> takes = new ArrayList<>();
+		List<Integer> taken = new ArrayList<>();
 		for (Integer finish : finishToTakeMap.keySet()) {
-			if (!dfs(finishToTakeMap, finish, takes)) {
+			if (!dfs(finishToTakeMap, finish, takes, taken)) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	public boolean dfs(Map<Integer, List<Integer>> finishToTakeMap, Integer finish, List<Integer> takes) {
+	public boolean dfs(Map<Integer, List<Integer>> finishToTakeMap, Integer finish, List<Integer> takes, List<Integer> taken) {
+		if (taken.contains(finish)) {
+			return true;
+		}
+
 		if (takes.contains(finish)) {
 			return false;
 		}
@@ -40,10 +45,11 @@ public class CourseSchedule {
 		if (finishToTakeMap.containsKey(finish)) {
 			takes.add(finish);
 			for (Integer take : finishToTakeMap.get(finish)) {
-				if (!dfs(finishToTakeMap, take, takes)) {
+				if (!dfs(finishToTakeMap, take, takes, taken)) {
 					return false;
 				}
 			}
+			taken.add(finish);
 			takes.remove(finish);
 		}
 		return true;
