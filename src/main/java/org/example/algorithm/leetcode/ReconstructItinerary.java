@@ -40,9 +40,11 @@ public class ReconstructItinerary {
 	// 	ATL = [ICN, JFK],
 	// 	JFK = [ATL, ICN],
 	// }
+
 	public List<String> findItinerary(List<List<String>> tickets) {
 		List<String> results = new LinkedList<>();
 		Map<String, PriorityQueue<String>> fromToMap = new HashMap<>();
+		// 우선순위 큐에 넣어서 어휘순으로 방문하도록 구성
 		for (List<String> ticket : tickets) {
 			fromToMap.putIfAbsent(ticket.get(0), new PriorityQueue<>());
 			fromToMap.get(ticket.get(0)).add(ticket.get(1));
@@ -53,9 +55,11 @@ public class ReconstructItinerary {
 	}
 
 	public void dfs(List<String> results, Map<String, PriorityQueue<String>> fromToMap, String from) {
+		// from 을 키로 가지고 있고, 도착 정보가 비어 있지 않으면 dfs 탐색 계속
 		while (fromToMap.containsKey(from) && !fromToMap.get(from).isEmpty()) {
 			dfs(results, fromToMap, fromToMap.get(from).poll());
 		}
+		// dfs 탐색 끝날때마다 첫번째 요소에 출발을 넣음
 		results.addFirst(from);
 	}
 
