@@ -28,9 +28,13 @@ public class NetworkDelayTime {
 			if (minIndex == -1) {
 				continue;
 			}
+			// 가장 작은 수에 해당하는 노드 방문처리
 			visited[minIndex] = true;
+			// 해당 노드와 연결되어있는 정보 가져오기
 			List<Graph> graphs = graphList.get(minIndex);
+
 			for (Graph graph : graphs) {
+				// 해당 노드와 연결 되어있는 Math.min(도착노드의 현재 최단거리, 현재 선택된 노드의 최단거리 + 현재노드에서 도착노드로 가는 가중치)로 업데이트
 				if (result[graph.getEnd()] > result[graph.getStart()] + graph.getWeigh()) {
 					result[graph.getEnd()] = result[graph.getStart()] + graph.getWeigh();
 				}
@@ -39,11 +43,12 @@ public class NetworkDelayTime {
 
 		int max = Integer.MIN_VALUE;
 		for (int i = 1; i <= n; i++) {
-			int i1 = result[i];
-			if (i1 == Integer.MAX_VALUE) {
+			int value = result[i];
+			// 만약 최단거리 배열 중 하나라도 무한인 값이 있다면 모든 노드를 갈 수 없다는 뜻이므로 -1 리턴 아니면 가장 큰값 리턴
+			if (value == Integer.MAX_VALUE) {
 				return -1;
 			}
-			max = Math.max(max, i1);
+			max = Math.max(max, value);
 		}
 		return max;
 	}
