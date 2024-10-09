@@ -22,6 +22,7 @@ public class NetworkDelayTime {
 		int[] result = init(times, n, k, graphList);
 
 		for (int i = 1; i <= n; i++) {
+			// 최단거리 배열중 가장 작은 수 찾기
 			int minIndex = getMinValueIndex(result);
 			if (minIndex == -1) {
 				continue;
