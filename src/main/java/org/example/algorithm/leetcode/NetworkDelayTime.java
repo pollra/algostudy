@@ -19,6 +19,7 @@ public class NetworkDelayTime {
 	public int networkDelayTime(int[][] times, int n, int k) {
 		// 인접 리스트로 구현
 		List<List<Graph>> graphList = new ArrayList<>();
+		// 최단거리 배열 초기화
 		int[] result = init(times, n, k, graphList);
 
 		for (int i = 1; i <= n; i++) {
