@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 // https://leetcode.com/problems/network-delay-time/description/
+// 시작 노드에서 모든 노드로의 최단 거리를 구한 후 최단 거리 배열이 무한인게 있으면 -1 없으면 최단 거리중 가장 큰값 반환
 public class NetworkDelayTime {
 
 	private static boolean[] visited;
