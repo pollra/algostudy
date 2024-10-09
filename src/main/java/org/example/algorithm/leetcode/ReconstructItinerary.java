@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
+// https://school.programmers.co.kr/learn/courses/30/lessons/43164
 // https://leetcode.com/problems/reconstruct-itinerary/description/
 public class ReconstructItinerary {
 
@@ -40,7 +41,6 @@ public class ReconstructItinerary {
 	// 	ATL = [ICN, JFK],
 	// 	JFK = [ATL, ICN],
 	// }
-
 	public List<String> findItinerary(List<List<String>> tickets) {
 		List<String> results = new LinkedList<>();
 		Map<String, PriorityQueue<String>> fromToMap = new HashMap<>();
