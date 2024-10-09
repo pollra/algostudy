@@ -17,6 +17,7 @@ public class NetworkDelayTime {
 	}
 
 	public int networkDelayTime(int[][] times, int n, int k) {
+		// 인접 리스트로 구현
 		List<List<Graph>> graphList = new ArrayList<>();
 		int[] result = init(times, n, k, graphList);
 
