@@ -17,39 +17,26 @@ public class NetworkDelayTime {
 	}
 
 	public int networkDelayTime(int[][] times, int n, int k) {
-		List<List<Node>> nodes = new ArrayList<>();
-		visited = new boolean[n + 1];
-		visited[0] = true;
+		List<List<Graph>> graphList = new ArrayList<>();
+		int[] dijkstra = init(times, n, k, graphList);
 
-		for (int i = 0; i <= n; i++) {
-			nodes.add(new ArrayList<>());
-		}
-		for (int[] time : times) {
-			Node node = new Node(time[0], time[1], time[2]);
-			nodes.get(time[0]).add(node);
-		}
-
-		int[] result = new int[n + 1];
-		Arrays.fill(result, Integer.MAX_VALUE);
-		result[k] = 0;
-
-		for (int i = 1; i < n + 1; i++) {
-			int minIndex = getMinIndex(result);
+		for (int i = 1; i <= n; i++) {
+			int minIndex = getMinValueIndex(dijkstra);
 			if (minIndex == -1) {
 				continue;
 			}
 			visited[minIndex] = true;
-			List<Node> nodes1 = nodes.get(minIndex);
-			for (Node node : nodes1) {
-				if (result[node.getEnd()] > result[node.getStart()] + node.getWeigh()) {
-					result[node.getEnd()] = result[node.getStart()] + node.getWeigh();
+			List<Graph> graphs = graphList.get(minIndex);
+			for (Graph graph : graphs) {
+				if (dijkstra[graph.getEnd()] > dijkstra[graph.getStart()] + graph.getWeigh()) {
+					dijkstra[graph.getEnd()] = dijkstra[graph.getStart()] + graph.getWeigh();
 				}
 			}
 		}
 
 		int max = Integer.MIN_VALUE;
 		for (int i = 1; i <= n; i++) {
-			int i1 = result[i];
+			int i1 = dijkstra[i];
 			if (i1 == Integer.MAX_VALUE) {
 				return -1;
 			}
@@ -58,7 +45,25 @@ public class NetworkDelayTime {
 		return max;
 	}
 
-	private int getMinIndex(int[] result) {
+	private int[] init(int[][] times, int n, int k, List<List<Graph>> graphList) {
+		visited = new boolean[n + 1];
+		visited[0] = true;
+
+		for (int i = 0; i <= n; i++) {
+			graphList.add(new ArrayList<>());
+		}
+		for (int[] time : times) {
+			Graph graph = new Graph(time[0], time[1], time[2]);
+			graphList.get(time[0]).add(graph);
+		}
+
+		int[] result = new int[n + 1];
+		Arrays.fill(result, Integer.MAX_VALUE);
+		result[k] = 0;
+		return result;
+	}
+
+	private int getMinValueIndex(int[] result) {
 		int min = Integer.MAX_VALUE;
 		int index = -1;
 		for (int i = 0; i < result.length; i++) {
@@ -73,7 +78,7 @@ public class NetworkDelayTime {
 		return index;
 	}
 
-	static class Node {
+	static class Graph {
 		private int start;
 		private int end;
 		private int weigh;
@@ -90,7 +95,7 @@ public class NetworkDelayTime {
 			return weigh;
 		}
 
-		public Node(int start, int end, int weigh) {
+		public Graph(int start, int end, int weigh) {
 			this.start = start;
 			this.end = end;
 			this.weigh = weigh;
