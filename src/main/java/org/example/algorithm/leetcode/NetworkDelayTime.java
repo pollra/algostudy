@@ -18,25 +18,25 @@ public class NetworkDelayTime {
 
 	public int networkDelayTime(int[][] times, int n, int k) {
 		List<List<Graph>> graphList = new ArrayList<>();
-		int[] dijkstra = init(times, n, k, graphList);
+		int[] result = init(times, n, k, graphList);
 
 		for (int i = 1; i <= n; i++) {
-			int minIndex = getMinValueIndex(dijkstra);
+			int minIndex = getMinValueIndex(result);
 			if (minIndex == -1) {
 				continue;
 			}
 			visited[minIndex] = true;
 			List<Graph> graphs = graphList.get(minIndex);
 			for (Graph graph : graphs) {
-				if (dijkstra[graph.getEnd()] > dijkstra[graph.getStart()] + graph.getWeigh()) {
-					dijkstra[graph.getEnd()] = dijkstra[graph.getStart()] + graph.getWeigh();
+				if (result[graph.getEnd()] > result[graph.getStart()] + graph.getWeigh()) {
+					result[graph.getEnd()] = result[graph.getStart()] + graph.getWeigh();
 				}
 			}
 		}
 
 		int max = Integer.MIN_VALUE;
 		for (int i = 1; i <= n; i++) {
-			int i1 = dijkstra[i];
+			int i1 = result[i];
 			if (i1 == Integer.MAX_VALUE) {
 				return -1;
 			}
